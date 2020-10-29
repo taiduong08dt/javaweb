@@ -12,8 +12,7 @@
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="<c:url value= 'template/web/shop-homepage.css' />"
-	rel="stylesheet">
+<link href="<c:url value='/template/web/css/style.css' />" rel="stylesheet" type="text/css" media="all"/>
 </head>
 <body>
 	<!-- header -->

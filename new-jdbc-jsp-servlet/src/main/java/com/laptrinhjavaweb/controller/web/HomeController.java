@@ -16,8 +16,9 @@ import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewsService;
 import com.laptrinhjavaweb.service.IUserService;
 import com.laptrinhjavaweb.utils.FormUtil;
+import com.laptrinhjavaweb.utils.SessionUtil;
 
-@WebServlet (urlPatterns = {"/trang-chu","/dang-nhap"})
+@WebServlet (urlPatterns = {"/trang-chu","/dang-nhap","/thoat"})
 public class HomeController extends HttpServlet{
 
 	@Inject
@@ -37,7 +38,8 @@ public class HomeController extends HttpServlet{
 			RequestDispatcher rd = req.getRequestDispatcher("/views/login.jsp");
 			rd.forward(req, resp);
 		} else if(action != null && action.equals("logout")) {
-			
+			SessionUtil.getInstance().removeVlue(req, "USERMODEL");
+			resp.sendRedirect(req.getContextPath() + "/trang-chu");
 		} else {
 			req.setAttribute("categories", categoryService.findAll());
 			RequestDispatcher rd = req.getRequestDispatcher("/views/web/home.jsp");
@@ -51,6 +53,7 @@ public class HomeController extends HttpServlet{
 			UserModel model = FormUtil.toModel(UserModel.class, req);
 			model = userSercive.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPassword(), 1);
 			if(model != null) {
+				SessionUtil.getInstance().putValue(req, "USERMODEL", model);
 				if(model.getRole().getCode().equals("USER")) {
 					resp.sendRedirect(req.getContextPath() + "/trang-chu");
 				}else if (model.getRole().getCode().equals("ADMIN")) {

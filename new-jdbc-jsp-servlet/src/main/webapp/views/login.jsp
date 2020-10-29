@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +11,12 @@
 	<div class="container">
 		<div class="login-form">
 			<div class="main-div">
-				<form action="<c:url value='/dang-nhap'/>" id="formLogin" method="POST">
+				<form action="<c:url value='/dang-nhap'/>" id="formLogin" method="post">
 
 					<div class="form-group">
 
 
-						<input type="email" class="form-control" id="userName" name="userName"
+						<input type="text" class="form-control" id="userName" name="userName"
 							placeholder="Tên đăng nhập">
 
 					</div>
