@@ -46,17 +46,17 @@
 			} catch (e) {
 			}
 		</script>
-		
+
 		<!-- memu -->
-		<%@ include file = "/common/admin/menu.jsp" %>
+		<%@ include file="/common/admin/menu.jsp"%>
 		<!-- memu -->
-		
+
 		<!-- body -->
-		<dec:body/>
+		<dec:body />
 		<!-- body -->
-		
+
 		<!-- footer -->
-		<%@ include file = "/common/admin/footer.jsp" %>
+		<%@ include file="/common/admin/footer.jsp"%>
 		<!-- footer -->
 	</div>
 
