@@ -18,7 +18,7 @@ public class SessionUtil {
 	}
 	
 	public Object getValue(HttpServletRequest request, String key) {
-		return request.getAttribute(key);
+		return request.getSession().getAttribute(key);
 	}
 	
 	public void removeVlue(HttpServletRequest request, String key) {

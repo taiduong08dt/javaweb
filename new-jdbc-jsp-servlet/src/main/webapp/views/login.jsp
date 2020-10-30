@@ -11,6 +11,10 @@
 	<div class="container">
 		<div class="login-form">
 			<div class="main-div">
+			    <c:if test="${not empty message}">
+			    	<div class="alert alert-${alert}">${message}</div>
+			    </c:if>
+				
 				<form action="<c:url value='/dang-nhap'/>" id="formLogin" method="post">
 
 					<div class="form-group">
