@@ -99,6 +99,7 @@
 								</c:if>
 							</div>
 						</div>
+						<input type="hidden" value="${model.id}" id="id" name="id" />
 					</form>
 					</div>
 				</div>
@@ -106,14 +107,50 @@
 		</div>
 	</div>
 	<script>
-		$('#btnAddOrUpdateNews').click(funtion (e){
-			e.preventDefault();
+		$('#btnAddOrUpdateNews').click (function (e){
+			e.preventDefault() ;
 			var data = {};
-			var formSubmit = $('#formSubmit').serializeArray();
-			$.each(formSubmit, funtion (i, v){
+			var formData = $('#formSubmit').serializeArray();
+			$.each(formData, function(i, v){
 				data[""+v.name+""] = v.value;
 			});
+			var id = $('#id').val();
+			if(id = ""){
+				addNews(data);
+			}else {
+				updateNews(data);
+			}
 		});
+		function addNews(data) {
+			$.ajax({
+				url: '${APIurl}',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				dataType: 'json',
+				success: function (result) {
+					console.log(result);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		}
+		function updateNews(data) {
+			$.ajax({
+				url: '${APIurl}',
+				type: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				dataType: 'json',
+				success: function (result) {
+					console.log(result);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		}
 	</script>
 </body>
 </html>
