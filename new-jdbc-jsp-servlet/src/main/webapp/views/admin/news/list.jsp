@@ -24,6 +24,13 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
+						
+						<c:if test="${not empty message}">
+							<div class="alert alert-${alert}">
+							${message}
+						</div>
+						</c:if>
+						
 							<div class="widget-box table-filter">
 								<div class="table-btn-controls">
 									<div class="pull-right tableTools-container">
@@ -135,10 +142,10 @@
 				contentType: 'application/json',
 				data: JSON.stringify(data),
 				success: function (result) {
-					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1";
+					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1&message=delete_success&alert=success";
 				},
 				error: function (error) {
-					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1";
+					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1&message=error_systemalert=danger";
 				}
 			});
 		}

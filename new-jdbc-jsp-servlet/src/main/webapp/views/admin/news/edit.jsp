@@ -82,8 +82,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right">Nội dung</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="content"
-									name="content" value="${model.content}" />
+								<textarea id="content" name="content" style="width: 820px; height: 175px">${model.content}</textarea>
 							</div>
 						</div>
 	
@@ -107,6 +106,10 @@
 		</div>
 	</div>
 	<script>
+		var editor = '';
+		$(document).ready(function(){
+			editor = CKEDITOR.replace('content');
+		});
 		$('#btnAddOrUpdateNews').click (function (e){
 			e.preventDefault() ;
 			var data = {};
@@ -114,8 +117,9 @@
 			$.each(formData, function(i, v){
 				data[""+v.name+""] = v.value;
 			});
+			data['content'] = editor.getData();
 			var id = $('#id').val();
-			if(id = ""){
+			if(id == ""){
 				addNews(data);
 			}else {
 				updateNews(data);
@@ -129,10 +133,10 @@
 				data: JSON.stringify(data),
 				dataType: 'json',
 				success: function (result) {
-					console.log(result);
+					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1&message=insert_success&alert=success";
 				},
 				error: function (error) {
-					console.log(error);
+					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1&message=error_system&alert=danger";
 				}
 			});
 		}
@@ -144,10 +148,10 @@
 				data: JSON.stringify(data),
 				dataType: 'json',
 				success: function (result) {
-					console.log(result);
+					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1&message=update_success&alert=success";
 				},
 				error: function (error) {
-					console.log(error);
+					window.location.href = "${NewsUrl}?type=list&maxPageItem=2&page=1&message=error_system&alert=danger";
 				}
 			});
 		}

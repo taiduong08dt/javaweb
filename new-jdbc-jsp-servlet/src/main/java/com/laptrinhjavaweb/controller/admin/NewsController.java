@@ -1,6 +1,7 @@
 package com.laptrinhjavaweb.controller.admin;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -27,7 +28,8 @@ public class NewsController extends HttpServlet {
 	
 	@Inject
 	ICategoryService categoryService;
-
+	
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 	private static final long serialVersionUID = -4420657226835614281L;
 
 	@Override
@@ -50,6 +52,12 @@ public class NewsController extends HttpServlet {
 			}
 			req.setAttribute("categories", categoryService.findAll());
 			view = "/views/admin/news/edit.jsp";
+		}
+		String message = req.getParameter("message");
+		String alert = req.getParameter("alert");
+		if(message != null && alert != null) {
+			req.setAttribute("message", resourceBundle.getString(message));
+			req.setAttribute("alert", alert);
 		}
 		req.setAttribute(SystemConstant.MODEL, model);
 		RequestDispatcher rd = req.getRequestDispatcher(view);

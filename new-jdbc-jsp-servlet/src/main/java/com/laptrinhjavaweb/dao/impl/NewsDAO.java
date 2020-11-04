@@ -2,6 +2,8 @@ package com.laptrinhjavaweb.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.laptrinhjavaweb.dao.INewsDAO;
 import com.laptrinhjavaweb.mapper.NewsMapper;
 import com.laptrinhjavaweb.model.NewsModel;
@@ -17,7 +19,8 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 
 	@Override
 	public Long save(NewsModel newsModel) {
-		//String sql = "INSERT INTO news (title, thumbnail, shortdescription, content, categoryid, createddate, createdby) VALUES(?, ?, ?, ?, ?)";
+		// String sql = "INSERT INTO news (title, thumbnail, shortdescription, content,
+		// categoryid, createddate, createdby) VALUES(?, ?, ?, ?, ?)";
 		StringBuilder sql = new StringBuilder("INSERT INTO news (title, thumbnail, shortdescription, content,");
 		sql.append("categoryid, createddate, createdby)");
 		sql.append("VALUES(?, ?, ?, ?, ?, ?, ?)");
@@ -36,7 +39,7 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 	@Override
 	public void update(NewsModel updateNews) {
 		// TODO Auto-generated method stub
-		
+
 		StringBuilder sql = new StringBuilder("UPDATE news SET title = ?, thumbnail = ?,");
 		sql.append("shortdescription = ?, content = ?, categoryid = ?,");
 		sql.append("createddate = ?, createdby = ?, modifieddate = ?, modifiedby = ? ");
@@ -50,7 +53,7 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 	@Override
 	public void delete(long id) {
 		// TODO Auto-generated method stub
-		//delete comment first ?
+		// delete comment first ?
 		String sql = "DELETE FROM news WHERE id = ?";
 		update(sql, id);
 	}
@@ -58,7 +61,7 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 	@Override
 	public List<NewsModel> findAll(Pageble pageble) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM news");
-		if(pageble.getSorter() != null) {
+		if(pageble.getSorter() != null && StringUtils.isNotBlank(pageble.getSorter().getSortName()) && StringUtils.isNotBlank(pageble.getSorter().getSortBy())) {
 			sql.append(" ORDER BY " + pageble.getSorter().getSortName() + " " + pageble.getSorter().getSortBy() + "");
 		}
 		if(pageble.getOffset() != null && pageble.getLimit() != null) {
